@@ -1,0 +1,16 @@
+train:
+  lr: 0.001
+  n_epoch: 10000
+  logging_epoch_step: 1          # epoch step to logging epoch loss
+  save_model_epoch_step: 5       # epoch step to save model
+  write_summary_loss_batch_step: 100
+  write_summary_2d_batch_step: 1000
+  logging_dir: '/home/kunhan/workspace/UCRFNet/Logging'
+  ckpt_dir_unet: '/home/kunhan/workspace/UCRFNet/Ckpt'
+  ckpt_dir_unet_crfrnn: '/home/kunhan/workspace/UCRFNet/Ckpt/unet_crfrnn_ckpt'
+
+  load_checkpoint: True
+  checkpoint_unet: unet_ckpt_2020-06-09-01-28_Epoch_44.ckpt
+  checkpoint_crfrnn: null
+
+

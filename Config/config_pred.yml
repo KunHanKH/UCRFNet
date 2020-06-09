@@ -1,0 +1,6 @@
+model:
+  logging_dir: '/home/kunhan/workspace/UCRFNet/Logging'
+  ckpt_dir: '/home/kunhan/workspace/UCRFNet/Ckpt'
+  checkpoint_unet: 'unet_ckpt_2020-06-08-22-56_Epoch_6.ckpt'
+  checkpoint_crfrnn: null
+

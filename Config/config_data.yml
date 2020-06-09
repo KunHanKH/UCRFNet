@@ -1,0 +1,69 @@
+dataset:
+  roi_names: [heart, lungr, lungl, spinalcord, trachea, eso]
+  roi_names_dict: {heart: 0, lungr: 1, lungl: 2, spinalcord: 3, trachea: 4, eso: 5}
+  n_slice_unet: 5
+  n_slice_crfrnn: 3
+  # paths to the datasets
+  data_dir: '/mnt/data/kunhan/medical_data/thorax/Fullnrrd_RS_gt'
+  # path to save predicted mask
+  pred_save_dir: '/mnt/data/kunhan/medical_data/thorax/Pred_mask'
+  # paths to name cutoff csv
+  pid_cutoff_pair: '/home/kunhan/workspace/UCRFNet/Data/split/cutoff_thorax.csv'
+  # paths to train used names csv
+  train_used_pids: '/home/kunhan/workspace/UCRFNet/Data/split/used_train_set_4_thorax.csv'
+  # paths to validation used names csv
+  val_used_pids: '/home/kunhan/workspace/UCRFNet/Data/split/used_test_set_4_thorax.csv'
+  # data transformations/augmentations
+  pred_used_pids: '/home/kunhan/workspace/UCRFNet/Data/split/sample_set_4_thorax.csv'
+
+  transformer:
+    3d:
+      train:
+        - name: Normalize
+        - name: RandomAffineXYZ_cv
+          affine_alpha: 10
+          axis: xy
+          label_borderMode: BORDER_CONSTANT
+          execution_probability: 0.3
+        - name: ElasticDeformation
+          raw_spline_order: 3
+          label_spline_order: 0
+          alpha: 300
+          sigma: 3
+          raw_fillcolor: -1
+          label_fillcolor: 0
+          execution_probability: 0.3
+        - name: ToTensor
+          raw_expand_dims: false
+          label_expand_dims: false
+          label_dtype: float
+      val:
+        - name: Normalize
+        - name: ToTensor
+          raw_expand_dims: false
+          label_expand_dims: false
+          label_dtype: float
+      test:
+        - name: Normalize
+        - name: ToTensor
+          raw_expand_dims: false
+          label_expand_dims: false
+          label_dtype: float
+      pred:
+        - name: Normalize
+        - name: ToTensor
+          raw_expand_dims: false
+          label_expand_dims: false
+          label_dtype: float
+    2d: Null
+# data loaders configuration
+loader:
+  2d_loader:
+    # train batch size given to the network
+    train_batch_size: 8
+    # val batch size given to the network
+    val_batch_size: 8
+    # pred batch size given to the network
+    pred_batch_size: 8
+    # how many subprocesses to use for data loading
+    num_workers: 0
